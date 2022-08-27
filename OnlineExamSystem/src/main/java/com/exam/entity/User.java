@@ -13,7 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.exam.entity.exam.Questions;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "users")
@@ -38,7 +40,13 @@ public class User{
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 	@JsonIgnore // to ignore the Json
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
-
+	
+	
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY,mappedBy = "user")//when lazy it means we have to call the getter then only the data gets loaded
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//when we fetch quiz we dont get the data of questions
+	private Set<Report> reports=new HashSet<Report>();
+	
+	
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
 	}
