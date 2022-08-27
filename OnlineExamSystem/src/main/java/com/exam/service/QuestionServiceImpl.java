@@ -33,7 +33,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public Questions getQuestionById(int quid) {
-		return this.qu_dao.findById(quid).get();
+		return this.qu_dao.findByQuesId(quid);
 	}
 
 	@Override

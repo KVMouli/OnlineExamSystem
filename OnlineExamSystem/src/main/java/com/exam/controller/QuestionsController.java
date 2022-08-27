@@ -49,13 +49,14 @@ public class QuestionsController {
 //	} No need of this why to take out all question the question should come out as per quiz
 	
 	//get single question
-	@GetMapping("/{quesId}")//quid can be said as URI variable//NOT WORKING
+	@GetMapping("/{quesId}")//quid can be said as URI variable
 	public Questions getQuestionById(@PathVariable("quesId") int quesId){
 		return this.quService.getQuestionById(quesId);
 		
 	}
 
-
+	//FOR STUDENT 
+	//BOTH ARE SAME ("/quiz/all/{qid}")
 	// get all question of any respective quiz
 	@GetMapping("/quiz/{qid}")//this is quiz id not ques id DONE
 	public ResponseEntity<?> getQuestionsOfQuiz(@PathVariable("qid") int qid){
@@ -78,7 +79,10 @@ public class QuestionsController {
 	public void delete(@PathVariable("quid") int quid) {
 		this.quService.deleteQuestion(quid);
 	}
-    @GetMapping("/quiz/all/{qid}")//qid is question Id
+	
+	//FOR ADMIN
+	// get all question of any respective quiz by id
+    @GetMapping("/quiz/all/{qid}")//qid is quiz id
     public ResponseEntity<?> getQuestionsOfQuizAdmin(@PathVariable("qid") int qid) {
         Quiz quiz = new Quiz();
         quiz.setQid(qid);
