@@ -1,5 +1,6 @@
 package com.exam.entity;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,13 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.exam.entity.exam.Questions;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "users")
-public class User{
+public class User implements UserDetails{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -148,6 +152,33 @@ public class User{
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", phone=" + phone + ", enabled=" + enabled
 				+ ", profile=" + profile + "]";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {// what authority it has is it role or admin we have to return that set
+		Set<Authority> authset=new HashSet<Authority>();
+		this.userRoles.forEach(userRole ->{
+			authset.add(new Authority(userRole.getRole().getRoleName()));
+		});
+		return authset;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

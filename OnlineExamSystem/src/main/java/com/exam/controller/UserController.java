@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,15 @@ public class UserController {
 	
 	@Autowired
 	private UserService uService;
+	@Autowired // as a bean declared at MySecurityconfig
+	private PasswordEncoder passwordEncoder;
 	//creating user
 	@PostMapping("/")
 	public User createUser(@RequestBody User user) throws UserAlreadyPresent{ //all JSON data simply comes into this
+		user.setProfile("default.png");
+		//encoding password with BCrypt password
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		
 		Role role=new Role();
 		role.setRoleId(45);
 		role.setRoleName("ADMIN"); //demo code to see the working

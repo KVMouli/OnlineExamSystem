@@ -14,7 +14,7 @@ public class UserRole {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long userRoleId;
+	private int userRoleId;
 	
 	//when you take out user role its user also comes out
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -27,11 +27,11 @@ public class UserRole {
 		
 	}
 
-	public Long getUserRoleId() {
+	public int getUserRoleId() {
 		return userRoleId;
 	}
 
-	public void setUserRoleId(Long userRoleId) {
+	public void setUserRoleId(int userRoleId) {
 		this.userRoleId = userRoleId;
 	}
 

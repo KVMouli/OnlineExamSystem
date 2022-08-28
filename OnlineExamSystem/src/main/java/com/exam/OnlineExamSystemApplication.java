@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.exam.entity.Role;
 import com.exam.entity.User;
@@ -18,6 +19,10 @@ public class OnlineExamSystemApplication implements CommandLineRunner {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 
 	public static void main(String[] args)  {
 		SpringApplication.run(OnlineExamSystemApplication.class, args);
@@ -32,12 +37,12 @@ public class OnlineExamSystemApplication implements CommandLineRunner {
 //		user.setFirstName("Suraj");
 //		user.setLastName("Soni");
 //		user.setUsername("surajsoni357");
-//		user.setPassword("2323");
+//		user.setPassword(this.passwordEncoder.encode("2323"));
 //		user.setEmail("suraj@soni");
 //		user.setProfile("default.png");
 //		
 //		Role role1=new Role();
-//		role1.setRoleId(1L);
+//		role1.setRoleId(1);
 //		role1.setRoleName("IT");
 //		
 //		UserRole userRoles =new UserRole();
